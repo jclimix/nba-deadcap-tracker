@@ -1,0 +1,440 @@
+2025-03-17 14:20:00.895 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2008-09 to year.
+2025-03-17 14:20:00.896 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2008-09 converted to year 2009.
+2025-03-17 14:20:00.896 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2009
+2025-03-17 14:20:00.896 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\2009-2012_team_mappings.csv
+2025-03-17 14:20:00.928 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2008-09
+2025-03-17 14:20:11.753 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2020-21 to year.
+2025-03-17 14:20:11.754 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2020-21 converted to year 2021.
+2025-03-17 14:20:11.755 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2021
+2025-03-17 14:20:11.755 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\modern_team_mappings.csv
+2025-03-17 14:20:11.758 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2020-21
+2025-03-17 14:20:17.696 | INFO     | __main__:analyze:99 - Analyzing 2020-21 data for Indiana Pacers
+2025-03-17 14:20:17.696 | INFO     | analyze_dead_cap:get_team_data:285 - Processing team data for 2020-21 season and team Indiana Pacers.
+2025-03-17 14:20:17.696 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2020-21 to year.
+2025-03-17 14:20:17.697 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2020-21 converted to year 2021.
+2025-03-17 14:20:17.697 | DEBUG    | analyze_dead_cap:get_team_abbreviation:24 - Getting team abbreviation for team: Indiana Pacers and year: 2021
+2025-03-17 14:20:17.697 | DEBUG    | analyze_dead_cap:get_team_abbreviation:38 - Using CSV file: mappings\modern_team_mappings.csv
+2025-03-17 14:20:17.700 | DEBUG    | analyze_dead_cap:get_team_abbreviation:44 - Team abbreviation for Indiana Pacers: IND
+2025-03-17 14:20:18.150 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'per_game_stats': Table '2021_reg_season_stats' successfully pulled into DataFrame
+2025-03-17 14:20:18.150 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:49 - Filtering players by team abbreviation: IND
+2025-03-17 14:20:18.266 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:77 - Filtered DataFrame shape after team abbreviation filter: (19, 31)
+2025-03-17 14:20:18.597 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table '2021_player_salaries' successfully pulled into DataFrame
+2025-03-17 14:20:18.597 | DEBUG    | analyze_dead_cap:add_salary_column:82 - Adding salary column by merging roster and salary data.
+2025-03-17 14:20:18.607 | DEBUG    | analyze_dead_cap:add_salary_column:94 - DataFrame shape after adding salary column: (19, 4)
+2025-03-17 14:20:18.607 | DEBUG    | analyze_dead_cap:get_league_games_played:100 - Getting league games played for year: 2021
+2025-03-17 14:20:18.918 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'league_wins_teams' successfully pulled into DataFrame
+2025-03-17 14:20:18.920 | DEBUG    | analyze_dead_cap:get_league_games_played:108 - League games played for year 2021: 72.0
+2025-03-17 14:20:18.920 | DEBUG    | analyze_dead_cap:add_games_missed_column:142 - Adding games missed column with total games: 72.0
+2025-03-17 14:20:18.921 | DEBUG    | analyze_dead_cap:clean_salary_column:135 - Cleaning salary column formatting.
+2025-03-17 14:20:18.923 | DEBUG    | analyze_dead_cap:add_dead_cap_column:149 - Calculating dead cap using total games: 72.0
+2025-03-17 14:20:18.924 | DEBUG    | analyze_dead_cap:add_dead_cap_column:152 - DataFrame columns before processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed']
+2025-03-17 14:20:18.924 | DEBUG    | analyze_dead_cap:add_dead_cap_column:153 - DataFrame dtypes before processing: 
+player_name            object
+age                    object
+games_played           object
+salary                 object
+approx_games_missed     int64
+dtype: object
+2025-03-17 14:20:18.925 | DEBUG    | analyze_dead_cap:add_dead_cap_column:156 - Sample data for first 2 rows:
+        player_name age games_played       salary  approx_games_missed
+0   Malcolm Brogdon  28           56  $20,700,000                   16
+1  Domantas Sabonis  24           62  $19,800,000                   10
+2025-03-17 14:20:18.933 | DEBUG    | analyze_dead_cap:add_dead_cap_column:161 - Test calculation result type: <class 'numpy.float64'>, value: 4664788.7323943665
+2025-03-17 14:20:18.934 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 20700000.0, games_missed: 16.0, result: 4664788.7323943665
+2025-03-17 14:20:18.934 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 19800000.0, games_missed: 10.0, result: 2788732.3943661973
+2025-03-17 14:20:18.935 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 16203704.0, games_missed: 37.0, result: 8444183.774647888
+2025-03-17 14:20:18.936 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 12000000.0, games_missed: 68.0, result: 11492957.746478872
+2025-03-17 14:20:18.937 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 7333333.0, games_missed: 6.0, result: 619718.2816901408
+2025-03-17 14:20:18.937 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 17500000.0, games_missed: 25.0, result: 6161971.830985916
+2025-03-17 14:20:18.938 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 955493.0, games_missed: 51.0, result: 686340.042253521
+2025-03-17 14:20:18.938 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 5720400.0, games_missed: 0.0, result: 0.0
+2025-03-17 14:20:18.939 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 10500000.0, games_missed: 36.0, result: 5323943.661971831
+2025-03-17 14:20:18.939 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 3500000.0, games_missed: 3.0, result: 147887.32394366196
+2025-03-17 14:20:18.940 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2160000.0, games_missed: 19.0, result: 578028.1690140845
+2025-03-17 14:20:18.941 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2345640.0, games_missed: 6.0, result: 198223.09859154932
+2025-03-17 14:20:18.941 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2957520.0, games_missed: 27.0, result: 1124690.704225352
+2025-03-17 14:20:18.941 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 1620564.0, games_missed: 43.0, result: 981468.338028169
+2025-03-17 14:20:18.942 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 801900.0, games_missed: 37.0, result: 417891.54929577466
+2025-03-17 14:20:18.942 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 0.0, games_missed: 67.0, result: 0.0
+2025-03-17 14:20:18.942 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 0.0, games_missed: 48.0, result: 0.0
+2025-03-17 14:20:18.943 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 1517981.0, games_missed: 68.0, result: 1453840.9577464787
+2025-03-17 14:20:18.943 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 0.0, games_missed: 66.0, result: 0.0
+2025-03-17 14:20:18.943 | DEBUG    | analyze_dead_cap:add_dead_cap_column:187 - Successfully created temporary column
+2025-03-17 14:20:18.944 | DEBUG    | analyze_dead_cap:add_dead_cap_column:204 - DataFrame columns after processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed', 'dead_cap']
+2025-03-17 14:20:18.945 | DEBUG    | analyze_dead_cap:add_salary_per_game_column:210 - Calculating salary per game using total games: 72.0
+2025-03-17 14:20:18.946 | DEBUG    | analyze_dead_cap:add_pct_of_cap_column:223 - Calculating % of cap for season: 2020-21
+2025-03-17 14:20:18.947 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2020-21
+2025-03-17 14:20:19.238 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 14:20:19.239 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2020-21: $109,140,000
+2025-03-17 14:20:19.240 | DEBUG    | analyze_dead_cap:update_traded_players:248 - Updating traded players with '*' markers.
+2025-03-17 14:20:19.241 | DEBUG    | analyze_dead_cap:sort_by_salary_desc:275 - Sorting DataFrame by salary in descending order.
+2025-03-17 14:20:19.266 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2020-21
+2025-03-17 14:20:19.553 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 14:20:19.554 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2020-21: $109,140,000
+2025-03-17 14:20:19.555 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:238 - Summing top 3 highest salaries.
+2025-03-17 14:20:19.581 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:242 - Total of top 3 salaries: $58,000,000.00
+2025-03-17 14:20:19.581 | DEBUG    | analyze_dead_cap:rename_columns:261 - Renaming columns for final output.
+2025-03-17 14:20:19.585 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2020-21 to year.
+2025-03-17 14:20:19.586 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2020-21 converted to year 2021.
+2025-03-17 14:20:19.586 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2021
+2025-03-17 14:20:19.586 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\modern_team_mappings.csv
+2025-03-17 14:20:19.587 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2020-21
+2025-03-17 14:22:02.973 | INFO     | __main__:analyze:99 - Analyzing 2020-21 data for Indiana Pacers
+2025-03-17 14:22:02.974 | INFO     | analyze_dead_cap:get_team_data:285 - Processing team data for 2020-21 season and team Indiana Pacers.
+2025-03-17 14:22:02.974 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2020-21 to year.
+2025-03-17 14:22:02.974 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2020-21 converted to year 2021.
+2025-03-17 14:22:02.974 | DEBUG    | analyze_dead_cap:get_team_abbreviation:24 - Getting team abbreviation for team: Indiana Pacers and year: 2021
+2025-03-17 14:22:02.974 | DEBUG    | analyze_dead_cap:get_team_abbreviation:38 - Using CSV file: mappings\modern_team_mappings.csv
+2025-03-17 14:22:02.976 | DEBUG    | analyze_dead_cap:get_team_abbreviation:44 - Team abbreviation for Indiana Pacers: IND
+2025-03-17 14:22:03.308 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'per_game_stats': Table '2021_reg_season_stats' successfully pulled into DataFrame
+2025-03-17 14:22:03.309 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:49 - Filtering players by team abbreviation: IND
+2025-03-17 14:22:03.391 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:77 - Filtered DataFrame shape after team abbreviation filter: (19, 31)
+2025-03-17 14:22:03.716 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table '2021_player_salaries' successfully pulled into DataFrame
+2025-03-17 14:22:03.716 | DEBUG    | analyze_dead_cap:add_salary_column:82 - Adding salary column by merging roster and salary data.
+2025-03-17 14:22:03.719 | DEBUG    | analyze_dead_cap:add_salary_column:94 - DataFrame shape after adding salary column: (19, 4)
+2025-03-17 14:22:03.719 | DEBUG    | analyze_dead_cap:get_league_games_played:100 - Getting league games played for year: 2021
+2025-03-17 14:22:04.011 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'league_wins_teams' successfully pulled into DataFrame
+2025-03-17 14:22:04.012 | DEBUG    | analyze_dead_cap:get_league_games_played:108 - League games played for year 2021: 72.0
+2025-03-17 14:22:04.013 | DEBUG    | analyze_dead_cap:add_games_missed_column:142 - Adding games missed column with total games: 72.0
+2025-03-17 14:22:04.013 | DEBUG    | analyze_dead_cap:clean_salary_column:135 - Cleaning salary column formatting.
+2025-03-17 14:22:04.014 | DEBUG    | analyze_dead_cap:add_dead_cap_column:149 - Calculating dead cap using total games: 72.0
+2025-03-17 14:22:04.014 | DEBUG    | analyze_dead_cap:add_dead_cap_column:152 - DataFrame columns before processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed']
+2025-03-17 14:22:04.015 | DEBUG    | analyze_dead_cap:add_dead_cap_column:153 - DataFrame dtypes before processing: 
+player_name            object
+age                    object
+games_played           object
+salary                 object
+approx_games_missed     int64
+dtype: object
+2025-03-17 14:22:04.016 | DEBUG    | analyze_dead_cap:add_dead_cap_column:156 - Sample data for first 2 rows:
+        player_name age games_played       salary  approx_games_missed
+0   Malcolm Brogdon  28           56  $20,700,000                   16
+1  Domantas Sabonis  24           62  $19,800,000                   10
+2025-03-17 14:22:04.018 | DEBUG    | analyze_dead_cap:add_dead_cap_column:161 - Test calculation result type: <class 'numpy.float64'>, value: 4664788.7323943665
+2025-03-17 14:22:04.019 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 20700000.0, games_missed: 16.0, result: 4664788.7323943665
+2025-03-17 14:22:04.021 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 19800000.0, games_missed: 10.0, result: 2788732.3943661973
+2025-03-17 14:22:04.021 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 16203704.0, games_missed: 37.0, result: 8444183.774647888
+2025-03-17 14:22:04.021 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 12000000.0, games_missed: 68.0, result: 11492957.746478872
+2025-03-17 14:22:04.022 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 7333333.0, games_missed: 6.0, result: 619718.2816901408
+2025-03-17 14:22:04.022 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 17500000.0, games_missed: 25.0, result: 6161971.830985916
+2025-03-17 14:22:04.022 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 955493.0, games_missed: 51.0, result: 686340.042253521
+2025-03-17 14:22:04.022 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 5720400.0, games_missed: 0.0, result: 0.0
+2025-03-17 14:22:04.023 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 10500000.0, games_missed: 36.0, result: 5323943.661971831
+2025-03-17 14:22:04.023 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 3500000.0, games_missed: 3.0, result: 147887.32394366196
+2025-03-17 14:22:04.023 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2160000.0, games_missed: 19.0, result: 578028.1690140845
+2025-03-17 14:22:04.024 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2345640.0, games_missed: 6.0, result: 198223.09859154932
+2025-03-17 14:22:04.024 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2957520.0, games_missed: 27.0, result: 1124690.704225352
+2025-03-17 14:22:04.024 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 1620564.0, games_missed: 43.0, result: 981468.338028169
+2025-03-17 14:22:04.025 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 801900.0, games_missed: 37.0, result: 417891.54929577466
+2025-03-17 14:22:04.025 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 0.0, games_missed: 67.0, result: 0.0
+2025-03-17 14:22:04.025 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 0.0, games_missed: 48.0, result: 0.0
+2025-03-17 14:22:04.025 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 1517981.0, games_missed: 68.0, result: 1453840.9577464787
+2025-03-17 14:22:04.026 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 0.0, games_missed: 66.0, result: 0.0
+2025-03-17 14:22:04.026 | DEBUG    | analyze_dead_cap:add_dead_cap_column:187 - Successfully created temporary column
+2025-03-17 14:22:04.028 | DEBUG    | analyze_dead_cap:add_dead_cap_column:204 - DataFrame columns after processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed', 'dead_cap']
+2025-03-17 14:22:04.029 | DEBUG    | analyze_dead_cap:add_salary_per_game_column:210 - Calculating salary per game using total games: 72.0
+2025-03-17 14:22:04.031 | DEBUG    | analyze_dead_cap:add_pct_of_cap_column:223 - Calculating % of cap for season: 2020-21
+2025-03-17 14:22:04.031 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2020-21
+2025-03-17 14:22:04.331 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 14:22:04.332 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2020-21: $109,140,000
+2025-03-17 14:22:04.333 | DEBUG    | analyze_dead_cap:update_traded_players:248 - Updating traded players with '*' markers.
+2025-03-17 14:22:04.335 | DEBUG    | analyze_dead_cap:sort_by_salary_desc:275 - Sorting DataFrame by salary in descending order.
+2025-03-17 14:22:04.336 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2020-21
+2025-03-17 14:22:04.658 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 14:22:04.659 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2020-21: $109,140,000
+2025-03-17 14:22:04.659 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:238 - Summing top 3 highest salaries.
+2025-03-17 14:22:04.660 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:242 - Total of top 3 salaries: $58,000,000.00
+2025-03-17 14:22:04.661 | DEBUG    | analyze_dead_cap:rename_columns:261 - Renaming columns for final output.
+2025-03-17 14:22:04.662 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2020-21 to year.
+2025-03-17 14:22:04.663 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2020-21 converted to year 2021.
+2025-03-17 14:22:04.663 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2021
+2025-03-17 14:22:04.663 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\modern_team_mappings.csv
+2025-03-17 14:22:04.665 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2020-21
+2025-03-17 14:22:12.038 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2013-14 to year.
+2025-03-17 14:22:12.039 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2013-14 converted to year 2014.
+2025-03-17 14:22:12.039 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2014
+2025-03-17 14:22:12.039 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\modern_team_mappings.csv
+2025-03-17 14:22:12.041 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2013-14
+2025-03-17 14:22:17.833 | INFO     | __main__:analyze:99 - Analyzing 2013-14 data for Toronto Raptors
+2025-03-17 14:22:17.833 | INFO     | analyze_dead_cap:get_team_data:285 - Processing team data for 2013-14 season and team Toronto Raptors.
+2025-03-17 14:22:17.834 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2013-14 to year.
+2025-03-17 14:22:17.834 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2013-14 converted to year 2014.
+2025-03-17 14:22:17.834 | DEBUG    | analyze_dead_cap:get_team_abbreviation:24 - Getting team abbreviation for team: Toronto Raptors and year: 2014
+2025-03-17 14:22:17.834 | DEBUG    | analyze_dead_cap:get_team_abbreviation:38 - Using CSV file: mappings\modern_team_mappings.csv
+2025-03-17 14:22:17.837 | DEBUG    | analyze_dead_cap:get_team_abbreviation:44 - Team abbreviation for Toronto Raptors: TOR
+2025-03-17 14:22:18.182 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'per_game_stats': Table '2014_reg_season_stats' successfully pulled into DataFrame
+2025-03-17 14:22:18.183 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:49 - Filtering players by team abbreviation: TOR
+2025-03-17 14:22:18.289 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:77 - Filtered DataFrame shape after team abbreviation filter: (15, 31)
+2025-03-17 14:22:18.607 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table '2014_player_salaries' successfully pulled into DataFrame
+2025-03-17 14:22:18.607 | DEBUG    | analyze_dead_cap:add_salary_column:82 - Adding salary column by merging roster and salary data.
+2025-03-17 14:22:18.610 | DEBUG    | analyze_dead_cap:add_salary_column:94 - DataFrame shape after adding salary column: (15, 4)
+2025-03-17 14:22:18.610 | DEBUG    | analyze_dead_cap:get_league_games_played:100 - Getting league games played for year: 2014
+2025-03-17 14:22:18.912 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'league_wins_teams' successfully pulled into DataFrame
+2025-03-17 14:22:18.913 | DEBUG    | analyze_dead_cap:get_league_games_played:108 - League games played for year 2014: 82.0
+2025-03-17 14:22:18.913 | DEBUG    | analyze_dead_cap:add_games_missed_column:142 - Adding games missed column with total games: 82.0
+2025-03-17 14:22:18.914 | DEBUG    | analyze_dead_cap:clean_salary_column:135 - Cleaning salary column formatting.
+2025-03-17 14:22:18.915 | DEBUG    | analyze_dead_cap:add_dead_cap_column:149 - Calculating dead cap using total games: 82.0
+2025-03-17 14:22:18.916 | DEBUG    | analyze_dead_cap:add_dead_cap_column:152 - DataFrame columns before processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed']
+2025-03-17 14:22:18.916 | DEBUG    | analyze_dead_cap:add_dead_cap_column:153 - DataFrame dtypes before processing: 
+player_name            object
+age                    object
+games_played           object
+salary                 object
+approx_games_missed     int64
+dtype: object
+2025-03-17 14:22:18.917 | DEBUG    | analyze_dead_cap:add_dead_cap_column:156 - Sample data for first 2 rows:
+     player_name age games_played      salary  approx_games_missed
+0  DeMar DeRozan  24           79  $9,500,000                    3
+1     Kyle Lowry  27           79  $6,210,000                    3
+2025-03-17 14:22:18.921 | DEBUG    | analyze_dead_cap:add_dead_cap_column:161 - Test calculation result type: <class 'numpy.float64'>, value: 351851.85185185185
+2025-03-17 14:22:18.922 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 9500000.0, games_missed: 3.0, result: 351851.85185185185
+2025-03-17 14:22:18.924 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 6210000.0, games_missed: 3.0, result: 230000.0
+2025-03-17 14:22:18.924 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 3526440.0, games_missed: 1.0, result: 43536.2962962963
+2025-03-17 14:22:18.925 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2678640.0, games_missed: 1.0, result: 33069.62962962963
+2025-03-17 14:22:18.925 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 6500000.0, games_missed: 5.0, result: 401234.56790123455
+2025-03-17 14:22:18.925 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2150188.0, games_missed: 21.0, result: 557456.1481481482
+2025-03-17 14:22:18.925 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 3105302.0, games_missed: 34.0, result: 1303460.0987654321
+2025-03-17 14:22:18.926 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 7583000.0, games_missed: 22.0, result: 2059580.2469135805
+2025-03-17 14:22:18.926 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 3183000.0, games_missed: 18.0, result: 707333.3333333334
+2025-03-17 14:22:18.926 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 1463000.0, games_missed: 61.0, result: 1101765.4320987654
+2025-03-17 14:22:18.927 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 3750000.0, games_missed: 28.0, result: 1296296.2962962964
+2025-03-17 14:22:18.927 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 0.0, games_missed: 68.0, result: 0.0
+2025-03-17 14:22:18.927 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 6250000.0, games_missed: 52.0, result: 4012345.6790123456
+2025-03-17 14:22:18.928 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 5722500.0, games_missed: 37.0, result: 2613981.4814814813
+2025-03-17 14:22:18.928 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 0.0, games_missed: 61.0, result: 0.0
+2025-03-17 14:22:18.929 | DEBUG    | analyze_dead_cap:add_dead_cap_column:187 - Successfully created temporary column
+2025-03-17 14:22:18.930 | DEBUG    | analyze_dead_cap:add_dead_cap_column:204 - DataFrame columns after processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed', 'dead_cap']
+2025-03-17 14:22:18.931 | DEBUG    | analyze_dead_cap:add_salary_per_game_column:210 - Calculating salary per game using total games: 82.0
+2025-03-17 14:22:18.932 | DEBUG    | analyze_dead_cap:add_pct_of_cap_column:223 - Calculating % of cap for season: 2013-14
+2025-03-17 14:22:18.933 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2013-14
+2025-03-17 14:22:19.244 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 14:22:19.244 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2013-14: $58,679,000
+2025-03-17 14:22:19.246 | DEBUG    | analyze_dead_cap:update_traded_players:248 - Updating traded players with '*' markers.
+2025-03-17 14:22:19.247 | DEBUG    | analyze_dead_cap:sort_by_salary_desc:275 - Sorting DataFrame by salary in descending order.
+2025-03-17 14:22:19.248 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2013-14
+2025-03-17 14:22:19.528 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 14:22:19.528 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2013-14: $58,679,000
+2025-03-17 14:22:19.530 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:238 - Summing top 3 highest salaries.
+2025-03-17 14:22:19.530 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:242 - Total of top 3 salaries: $23,583,000.00
+2025-03-17 14:22:19.531 | DEBUG    | analyze_dead_cap:rename_columns:261 - Renaming columns for final output.
+2025-03-17 14:22:19.533 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2013-14 to year.
+2025-03-17 14:22:19.533 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2013-14 converted to year 2014.
+2025-03-17 14:22:19.534 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2014
+2025-03-17 14:22:19.534 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\modern_team_mappings.csv
+2025-03-17 14:22:19.535 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2013-14
+2025-03-17 14:40:49.484 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2008-09 to year.
+2025-03-17 14:40:49.485 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2008-09 converted to year 2009.
+2025-03-17 14:40:49.486 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2009
+2025-03-17 14:40:49.486 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\2009-2012_team_mappings.csv
+2025-03-17 14:40:49.490 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2008-09
+2025-03-17 14:40:53.385 | INFO     | __main__:analyze:99 - Analyzing 2008-09 data for Los Angeles Lakers
+2025-03-17 14:40:53.385 | INFO     | analyze_dead_cap:get_team_data:285 - Processing team data for 2008-09 season and team Los Angeles Lakers.
+2025-03-17 14:40:53.386 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2008-09 to year.
+2025-03-17 14:40:53.386 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2008-09 converted to year 2009.
+2025-03-17 14:40:53.386 | DEBUG    | analyze_dead_cap:get_team_abbreviation:24 - Getting team abbreviation for team: Los Angeles Lakers and year: 2009
+2025-03-17 14:40:53.386 | DEBUG    | analyze_dead_cap:get_team_abbreviation:38 - Using CSV file: mappings\2009-2012_team_mappings.csv
+2025-03-17 14:40:53.390 | DEBUG    | analyze_dead_cap:get_team_abbreviation:44 - Team abbreviation for Los Angeles Lakers: LAL
+2025-03-17 14:40:53.805 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'per_game_stats': Table '2009_reg_season_stats' successfully pulled into DataFrame
+2025-03-17 14:40:53.805 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:49 - Filtering players by team abbreviation: LAL
+2025-03-17 14:40:53.906 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:77 - Filtered DataFrame shape after team abbreviation filter: (15, 31)
+2025-03-17 14:40:54.248 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table '2009_player_salaries' successfully pulled into DataFrame
+2025-03-17 14:40:54.249 | DEBUG    | analyze_dead_cap:add_salary_column:82 - Adding salary column by merging roster and salary data.
+2025-03-17 14:40:54.251 | DEBUG    | analyze_dead_cap:add_salary_column:94 - DataFrame shape after adding salary column: (15, 4)
+2025-03-17 14:40:54.252 | DEBUG    | analyze_dead_cap:get_league_games_played:100 - Getting league games played for year: 2009
+2025-03-17 14:40:54.544 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'league_wins_teams' successfully pulled into DataFrame
+2025-03-17 14:40:54.545 | DEBUG    | analyze_dead_cap:get_league_games_played:108 - League games played for year 2009: 82.0
+2025-03-17 14:40:54.545 | DEBUG    | analyze_dead_cap:add_games_missed_column:142 - Adding games missed column with total games: 82.0
+2025-03-17 14:40:54.546 | DEBUG    | analyze_dead_cap:clean_salary_column:135 - Cleaning salary column formatting.
+2025-03-17 14:40:54.546 | DEBUG    | analyze_dead_cap:add_dead_cap_column:149 - Calculating dead cap using total games: 82.0
+2025-03-17 14:40:54.547 | DEBUG    | analyze_dead_cap:add_dead_cap_column:152 - DataFrame columns before processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed']
+2025-03-17 14:40:54.547 | DEBUG    | analyze_dead_cap:add_dead_cap_column:153 - DataFrame dtypes before processing: 
+player_name            object
+age                    object
+games_played           object
+salary                 object
+approx_games_missed     int64
+dtype: object
+2025-03-17 14:40:54.548 | DEBUG    | analyze_dead_cap:add_dead_cap_column:156 - Sample data for first 2 rows:
+   player_name age games_played       salary  approx_games_missed
+0  Kobe Bryant  30           82  $21,262,500                    0
+1    Pau Gasol  28           81  $15,106,000                    1
+2025-03-17 14:40:54.552 | DEBUG    | analyze_dead_cap:add_dead_cap_column:161 - Test calculation result type: <class 'numpy.float64'>, value: 0.0
+2025-03-17 14:40:54.552 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 21262500.0, games_missed: 0.0, result: 0.0
+2025-03-17 14:40:54.552 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 15106000.0, games_missed: 1.0, result: 186493.82716049382
+2025-03-17 14:40:54.553 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2769300.0, games_missed: 32.0, result: 1094044.4444444445
+2025-03-17 14:40:54.553 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 14148596.0, games_missed: 4.0, result: 698696.0987654321
+2025-03-17 14:40:54.553 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4700000.0, games_missed: 0.0, result: 0.0
+2025-03-17 14:40:54.553 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 3100000.0, games_missed: 0.0, result: 0.0
+2025-03-17 14:40:54.554 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 1080000.0, games_missed: 17.0, result: 226666.6666666667
+2025-03-17 14:40:54.554 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4524887.0, games_missed: 2.0, result: 111725.6049382716
+2025-03-17 14:40:54.554 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4420000.0, games_missed: 17.0, result: 927654.3209876543
+2025-03-17 14:40:54.555 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 797581.0, games_missed: 64.0, result: 630187.4567901235
+2025-03-17 14:40:54.555 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 854957.0, games_missed: 22.0, result: 232210.54320987655
+2025-03-17 14:40:54.555 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4159200.0, games_missed: 74.0, result: 3799762.9629629627
+2025-03-17 14:40:54.555 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 1971941.0, games_missed: 59.0, result: 1436352.086419753
+2025-03-17 14:40:54.556 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2500000.0, games_missed: 64.0, result: 1975308.6419753085
+2025-03-17 14:40:54.556 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 442114.0, games_missed: 72.0, result: 392990.22222222225
+2025-03-17 14:40:54.557 | DEBUG    | analyze_dead_cap:add_dead_cap_column:187 - Successfully created temporary column
+2025-03-17 14:40:54.557 | DEBUG    | analyze_dead_cap:add_dead_cap_column:204 - DataFrame columns after processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed', 'dead_cap']
+2025-03-17 14:40:54.558 | DEBUG    | analyze_dead_cap:add_salary_per_game_column:210 - Calculating salary per game using total games: 82.0
+2025-03-17 14:40:54.559 | DEBUG    | analyze_dead_cap:add_pct_of_cap_column:223 - Calculating % of cap for season: 2008-09
+2025-03-17 14:40:54.559 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2008-09
+2025-03-17 14:40:54.861 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 14:40:54.863 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2008-09: $58,680,000
+2025-03-17 14:40:54.863 | DEBUG    | analyze_dead_cap:update_traded_players:248 - Updating traded players with '*' markers.
+2025-03-17 14:40:54.865 | DEBUG    | analyze_dead_cap:sort_by_salary_desc:275 - Sorting DataFrame by salary in descending order.
+2025-03-17 14:40:54.866 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2008-09
+2025-03-17 14:40:55.184 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 14:40:55.185 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2008-09: $58,680,000
+2025-03-17 14:40:55.186 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:238 - Summing top 3 highest salaries.
+2025-03-17 14:40:55.187 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:242 - Total of top 3 salaries: $50,517,096.00
+2025-03-17 14:40:55.187 | DEBUG    | analyze_dead_cap:rename_columns:261 - Renaming columns for final output.
+2025-03-17 14:40:55.190 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2008-09 to year.
+2025-03-17 14:40:55.192 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2008-09 converted to year 2009.
+2025-03-17 14:40:55.192 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2009
+2025-03-17 14:40:55.193 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\2009-2012_team_mappings.csv
+2025-03-17 14:40:55.195 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2008-09
+2025-03-17 14:41:24.116 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2008-09 to year.
+2025-03-17 14:41:24.117 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2008-09 converted to year 2009.
+2025-03-17 14:41:24.117 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2009
+2025-03-17 14:41:24.117 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\2009-2012_team_mappings.csv
+2025-03-17 14:41:24.119 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2008-09
+2025-03-17 14:41:31.536 | INFO     | __main__:analyze:99 - Analyzing 2008-09 data for Los Angeles Lakers
+2025-03-17 14:41:31.536 | INFO     | analyze_dead_cap:get_team_data:285 - Processing team data for 2008-09 season and team Los Angeles Lakers.
+2025-03-17 14:41:31.536 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2008-09 to year.
+2025-03-17 14:41:31.537 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2008-09 converted to year 2009.
+2025-03-17 14:41:31.537 | DEBUG    | analyze_dead_cap:get_team_abbreviation:24 - Getting team abbreviation for team: Los Angeles Lakers and year: 2009
+2025-03-17 14:41:31.539 | DEBUG    | analyze_dead_cap:get_team_abbreviation:38 - Using CSV file: mappings\2009-2012_team_mappings.csv
+2025-03-17 14:41:31.541 | DEBUG    | analyze_dead_cap:get_team_abbreviation:44 - Team abbreviation for Los Angeles Lakers: LAL
+2025-03-17 14:41:31.878 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'per_game_stats': Table '2009_reg_season_stats' successfully pulled into DataFrame
+2025-03-17 14:41:31.878 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:49 - Filtering players by team abbreviation: LAL
+2025-03-17 14:41:31.953 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:77 - Filtered DataFrame shape after team abbreviation filter: (15, 31)
+2025-03-17 14:41:32.263 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table '2009_player_salaries' successfully pulled into DataFrame
+2025-03-17 14:41:32.263 | DEBUG    | analyze_dead_cap:add_salary_column:82 - Adding salary column by merging roster and salary data.
+2025-03-17 14:41:32.266 | DEBUG    | analyze_dead_cap:add_salary_column:94 - DataFrame shape after adding salary column: (15, 4)
+2025-03-17 14:41:32.267 | DEBUG    | analyze_dead_cap:get_league_games_played:100 - Getting league games played for year: 2009
+2025-03-17 14:41:32.583 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'league_wins_teams' successfully pulled into DataFrame
+2025-03-17 14:41:32.584 | DEBUG    | analyze_dead_cap:get_league_games_played:108 - League games played for year 2009: 82.0
+2025-03-17 14:41:32.585 | DEBUG    | analyze_dead_cap:add_games_missed_column:142 - Adding games missed column with total games: 82.0
+2025-03-17 14:41:32.585 | DEBUG    | analyze_dead_cap:clean_salary_column:135 - Cleaning salary column formatting.
+2025-03-17 14:41:32.586 | DEBUG    | analyze_dead_cap:add_dead_cap_column:149 - Calculating dead cap using total games: 82.0
+2025-03-17 14:41:32.586 | DEBUG    | analyze_dead_cap:add_dead_cap_column:152 - DataFrame columns before processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed']
+2025-03-17 14:41:32.586 | DEBUG    | analyze_dead_cap:add_dead_cap_column:153 - DataFrame dtypes before processing: 
+player_name            object
+age                    object
+games_played           object
+salary                 object
+approx_games_missed     int64
+dtype: object
+2025-03-17 14:41:32.588 | DEBUG    | analyze_dead_cap:add_dead_cap_column:156 - Sample data for first 2 rows:
+   player_name age games_played       salary  approx_games_missed
+0  Kobe Bryant  30           82  $21,262,500                    0
+1    Pau Gasol  28           81  $15,106,000                    1
+2025-03-17 14:41:32.592 | DEBUG    | analyze_dead_cap:add_dead_cap_column:161 - Test calculation result type: <class 'numpy.float64'>, value: 0.0
+2025-03-17 14:41:32.592 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 21262500.0, games_missed: 0.0, result: 0.0
+2025-03-17 14:41:32.592 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 15106000.0, games_missed: 1.0, result: 186493.82716049382
+2025-03-17 14:41:32.593 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2769300.0, games_missed: 32.0, result: 1094044.4444444445
+2025-03-17 14:41:32.594 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 14148596.0, games_missed: 4.0, result: 698696.0987654321
+2025-03-17 14:41:32.594 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4700000.0, games_missed: 0.0, result: 0.0
+2025-03-17 14:41:32.594 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 3100000.0, games_missed: 0.0, result: 0.0
+2025-03-17 14:41:32.594 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 1080000.0, games_missed: 17.0, result: 226666.6666666667
+2025-03-17 14:41:32.595 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4524887.0, games_missed: 2.0, result: 111725.6049382716
+2025-03-17 14:41:32.596 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4420000.0, games_missed: 17.0, result: 927654.3209876543
+2025-03-17 14:41:32.597 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 797581.0, games_missed: 64.0, result: 630187.4567901235
+2025-03-17 14:41:32.598 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 854957.0, games_missed: 22.0, result: 232210.54320987655
+2025-03-17 14:41:32.598 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4159200.0, games_missed: 74.0, result: 3799762.9629629627
+2025-03-17 14:41:32.599 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 1971941.0, games_missed: 59.0, result: 1436352.086419753
+2025-03-17 14:41:32.600 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2500000.0, games_missed: 64.0, result: 1975308.6419753085
+2025-03-17 14:41:32.600 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 442114.0, games_missed: 72.0, result: 392990.22222222225
+2025-03-17 14:41:32.601 | DEBUG    | analyze_dead_cap:add_dead_cap_column:187 - Successfully created temporary column
+2025-03-17 14:41:32.603 | DEBUG    | analyze_dead_cap:add_dead_cap_column:204 - DataFrame columns after processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed', 'dead_cap']
+2025-03-17 14:41:32.603 | DEBUG    | analyze_dead_cap:add_salary_per_game_column:210 - Calculating salary per game using total games: 82.0
+2025-03-17 14:41:32.605 | DEBUG    | analyze_dead_cap:add_pct_of_cap_column:223 - Calculating % of cap for season: 2008-09
+2025-03-17 14:41:32.605 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2008-09
+2025-03-17 14:41:32.920 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 14:41:32.922 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2008-09: $58,680,000
+2025-03-17 14:41:32.923 | DEBUG    | analyze_dead_cap:update_traded_players:248 - Updating traded players with '*' markers.
+2025-03-17 14:41:32.925 | DEBUG    | analyze_dead_cap:sort_by_salary_desc:275 - Sorting DataFrame by salary in descending order.
+2025-03-17 14:41:32.926 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2008-09
+2025-03-17 14:41:33.233 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 14:41:33.234 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2008-09: $58,680,000
+2025-03-17 14:41:33.235 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:238 - Summing top 3 highest salaries.
+2025-03-17 14:41:33.236 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:242 - Total of top 3 salaries: $50,517,096.00
+2025-03-17 14:41:33.236 | DEBUG    | analyze_dead_cap:rename_columns:261 - Renaming columns for final output.
+2025-03-17 14:41:33.241 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2008-09 to year.
+2025-03-17 14:41:33.241 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2008-09 converted to year 2009.
+2025-03-17 14:41:33.242 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2009
+2025-03-17 14:41:33.242 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\2009-2012_team_mappings.csv
+2025-03-17 14:41:33.244 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2008-09
+2025-03-17 15:03:51.905 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2008-09 to year.
+2025-03-17 15:03:51.905 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2008-09 converted to year 2009.
+2025-03-17 15:03:51.906 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2009
+2025-03-17 15:03:51.906 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\2009-2012_team_mappings.csv
+2025-03-17 15:03:51.910 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2008-09
+2025-03-17 15:09:06.270 | INFO     | __main__:analyze:99 - Analyzing 2008-09 data for Los Angeles Lakers
+2025-03-17 15:09:06.272 | INFO     | analyze_dead_cap:get_team_data:285 - Processing team data for 2008-09 season and team Los Angeles Lakers.
+2025-03-17 15:09:06.273 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2008-09 to year.
+2025-03-17 15:09:06.273 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2008-09 converted to year 2009.
+2025-03-17 15:09:06.273 | DEBUG    | analyze_dead_cap:get_team_abbreviation:24 - Getting team abbreviation for team: Los Angeles Lakers and year: 2009
+2025-03-17 15:09:06.273 | DEBUG    | analyze_dead_cap:get_team_abbreviation:38 - Using CSV file: mappings\2009-2012_team_mappings.csv
+2025-03-17 15:09:06.275 | DEBUG    | analyze_dead_cap:get_team_abbreviation:44 - Team abbreviation for Los Angeles Lakers: LAL
+2025-03-17 15:09:06.726 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'per_game_stats': Table '2009_reg_season_stats' successfully pulled into DataFrame
+2025-03-17 15:09:06.726 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:49 - Filtering players by team abbreviation: LAL
+2025-03-17 15:09:06.805 | DEBUG    | analyze_dead_cap:filter_teams_by_abbreviation:77 - Filtered DataFrame shape after team abbreviation filter: (15, 31)
+2025-03-17 15:09:07.129 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table '2009_player_salaries' successfully pulled into DataFrame
+2025-03-17 15:09:07.129 | DEBUG    | analyze_dead_cap:add_salary_column:82 - Adding salary column by merging roster and salary data.
+2025-03-17 15:09:07.132 | DEBUG    | analyze_dead_cap:add_salary_column:94 - DataFrame shape after adding salary column: (15, 4)
+2025-03-17 15:09:07.132 | DEBUG    | analyze_dead_cap:get_league_games_played:100 - Getting league games played for year: 2009
+2025-03-17 15:09:07.449 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'league_wins_teams' successfully pulled into DataFrame
+2025-03-17 15:09:07.450 | DEBUG    | analyze_dead_cap:get_league_games_played:108 - League games played for year 2009: 82.0
+2025-03-17 15:09:07.450 | DEBUG    | analyze_dead_cap:add_games_missed_column:142 - Adding games missed column with total games: 82.0
+2025-03-17 15:09:07.451 | DEBUG    | analyze_dead_cap:clean_salary_column:135 - Cleaning salary column formatting.
+2025-03-17 15:09:07.452 | DEBUG    | analyze_dead_cap:add_dead_cap_column:149 - Calculating dead cap using total games: 82.0
+2025-03-17 15:09:07.452 | DEBUG    | analyze_dead_cap:add_dead_cap_column:152 - DataFrame columns before processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed']
+2025-03-17 15:09:07.452 | DEBUG    | analyze_dead_cap:add_dead_cap_column:153 - DataFrame dtypes before processing: 
+player_name            object
+age                    object
+games_played           object
+salary                 object
+approx_games_missed     int64
+dtype: object
+2025-03-17 15:09:07.460 | DEBUG    | analyze_dead_cap:add_dead_cap_column:156 - Sample data for first 2 rows:
+   player_name age games_played       salary  approx_games_missed
+0  Kobe Bryant  30           82  $21,262,500                    0
+1    Pau Gasol  28           81  $15,106,000                    1
+2025-03-17 15:09:07.467 | DEBUG    | analyze_dead_cap:add_dead_cap_column:161 - Test calculation result type: <class 'numpy.float64'>, value: 0.0
+2025-03-17 15:09:07.467 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 21262500.0, games_missed: 0.0, result: 0.0
+2025-03-17 15:09:07.468 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 15106000.0, games_missed: 1.0, result: 186493.82716049382
+2025-03-17 15:09:07.468 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2769300.0, games_missed: 32.0, result: 1094044.4444444445
+2025-03-17 15:09:07.469 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 14148596.0, games_missed: 4.0, result: 698696.0987654321
+2025-03-17 15:09:07.469 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4700000.0, games_missed: 0.0, result: 0.0
+2025-03-17 15:09:07.471 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 3100000.0, games_missed: 0.0, result: 0.0
+2025-03-17 15:09:07.471 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 1080000.0, games_missed: 17.0, result: 226666.6666666667
+2025-03-17 15:09:07.472 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4524887.0, games_missed: 2.0, result: 111725.6049382716
+2025-03-17 15:09:07.472 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4420000.0, games_missed: 17.0, result: 927654.3209876543
+2025-03-17 15:09:07.472 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 797581.0, games_missed: 64.0, result: 630187.4567901235
+2025-03-17 15:09:07.473 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 854957.0, games_missed: 22.0, result: 232210.54320987655
+2025-03-17 15:09:07.473 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 4159200.0, games_missed: 74.0, result: 3799762.9629629627
+2025-03-17 15:09:07.473 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 1971941.0, games_missed: 59.0, result: 1436352.086419753
+2025-03-17 15:09:07.474 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 2500000.0, games_missed: 64.0, result: 1975308.6419753085
+2025-03-17 15:09:07.474 | DEBUG    | analyze_dead_cap:add_dead_cap_column:180 - Row calculation - salary: 442114.0, games_missed: 72.0, result: 392990.22222222225
+2025-03-17 15:09:07.475 | DEBUG    | analyze_dead_cap:add_dead_cap_column:187 - Successfully created temporary column
+2025-03-17 15:09:07.476 | DEBUG    | analyze_dead_cap:add_dead_cap_column:204 - DataFrame columns after processing: ['player_name', 'age', 'games_played', 'salary', 'approx_games_missed', 'dead_cap']
+2025-03-17 15:09:07.476 | DEBUG    | analyze_dead_cap:add_salary_per_game_column:210 - Calculating salary per game using total games: 82.0
+2025-03-17 15:09:07.477 | DEBUG    | analyze_dead_cap:add_pct_of_cap_column:223 - Calculating % of cap for season: 2008-09
+2025-03-17 15:09:07.478 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2008-09
+2025-03-17 15:09:07.798 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 15:09:07.799 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2008-09: $58,680,000
+2025-03-17 15:09:07.800 | DEBUG    | analyze_dead_cap:update_traded_players:248 - Updating traded players with '*' markers.
+2025-03-17 15:09:07.801 | DEBUG    | analyze_dead_cap:sort_by_salary_desc:275 - Sorting DataFrame by salary in descending order.
+2025-03-17 15:09:07.802 | DEBUG    | analyze_dead_cap:get_salary_cap:116 - Retrieving salary cap for season: 2008-09
+2025-03-17 15:09:08.102 | INFO     | sql_utils.sql_transfers:extract_table_to_df:29 - Schema 'salary': Table 'salary_caps' successfully pulled into DataFrame
+2025-03-17 15:09:08.104 | DEBUG    | analyze_dead_cap:get_salary_cap:120 - Salary cap for season 2008-09: $58,680,000
+2025-03-17 15:09:08.105 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:238 - Summing top 3 highest salaries.
+2025-03-17 15:09:08.106 | DEBUG    | analyze_dead_cap:sum_top_3_salaries:242 - Total of top 3 salaries: $50,517,096.00
+2025-03-17 15:09:08.106 | DEBUG    | analyze_dead_cap:rename_columns:261 - Renaming columns for final output.
+2025-03-17 15:09:08.110 | DEBUG    | analyze_dead_cap:season_to_year:8 - Converting season 2008-09 to year.
+2025-03-17 15:09:08.111 | DEBUG    | analyze_dead_cap:season_to_year:19 - Season 2008-09 converted to year 2009.
+2025-03-17 15:09:08.111 | DEBUG    | __main__:get_teams_for_season:44 - Getting teams for year: 2009
+2025-03-17 15:09:08.111 | DEBUG    | __main__:get_teams_for_season:59 - Using CSV file: mappings\2009-2012_team_mappings.csv
+2025-03-17 15:09:08.112 | DEBUG    | __main__:get_teams_for_season:65 - Found 30 teams for season 2008-09

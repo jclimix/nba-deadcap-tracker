@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA DeadCap Tracker | Universe-J</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        :root {
+            --primary: #28a745;
+            --secondary: #198754;
+            --dark: #1A1A1A;
+            --light: #f5f5f5;
+        }
+
+        html,
+        body {
+            height: auto;
+            min-height: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body {
+            background-color: #252525;
+            color: var(--light);
+            font-family: 'Lexend', sans-serif;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .main-container {
+            flex: 1 0 auto;
+        }
+
+        footer {
+            flex-shrink: 0;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+            color: var(--light);
+            margin-top: auto;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .header {
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .main-logo {
+            width: 320px;
+            height: 320px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--secondary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .card {
+            background-color: #333;
+            color: white;
+        }
+
+        .navbar-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-basketball me-2"></i>
+                NBA DeadCap Tracker (v{{ version }})
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://hooper-labs.com"><i class="fas fa-flask me-1"></i> HooperLabs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/jclimix/nba-deadcap-tracker" target="_blank"><i
+                                class="fab fa-github me-1"></i>
+                            GitHub</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="https://docs.google.com/document/d/1Tyk_R30A8-YtiTBQXkcf5g3FDEZ6wc1IrHCkO69-iwU/edit?usp=sharing"
+                            target="_blank"><i class="fas fa-info-circle me-1"></i> About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="/static/images/logo.png" alt="NBA Salary Analysis Logo" class="main-logo">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center mb-4 px-4">
+                            <h3 style="color: #28a745;">Instructions</h3>
+                            <p>Select a season and team, then click the green button below to view a detailed analysis
+                                of the team's salary distribution and "dead cap" from missed games.</p>
+                        </div>
+                        <form action="/analyze" method="post">
+                            <div class="mb-3">
+                                <label for="season" class="form-label">Season:</label>
+                                <select class="form-select" id="season" name="season">
+                                    {% for season in seasons %}
+                                    <option value="{{ season }}" {% if season==default_season %}selected{% endif %}>{{
+                                        season }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="team" class="form-label">Team:</label>
+                                <select class="form-select" id="team" name="team">
+                                    {% for team in teams %}
+                                    <option value="{{ team }}" {% if team==default_team %}selected{% endif %}>{{ team }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Analyze</button>
+                            </div>
+                        </form>
+
+                        <script>
+                            // JavaScript to update team dropdown when season changes
+                            document.getElementById('season').addEventListener('change', function () {
+                                const season = this.value;
+                                const teamSelect = document.getElementById('team');
+
+                                // Clear loading message if it exists
+                                const loadingMsg = document.getElementById('loading-teams');
+                                if (loadingMsg) {
+                                    loadingMsg.remove();
+                                }
+
+                                // Add loading message
+                                const loadingDiv = document.createElement('div');
+                                loadingDiv.id = 'loading-teams';
+                                loadingDiv.className = 'text-muted small mt-1';
+                                loadingDiv.textContent = 'Loading teams...';
+                                teamSelect.parentNode.appendChild(loadingDiv);
+
+                                // Fetch teams for selected season
+                                fetch(`/api/teams/${season}`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // Clear existing options
+                                        teamSelect.innerHTML = '';
+
+                                        // Add new options
+                                        data.teams.forEach(team => {
+                                            const option = document.createElement('option');
+                                            option.value = team;
+                                            option.textContent = team;
+                                            teamSelect.appendChild(option);
+                                        });
+
+                                        // Remove loading message
+                                        loadingDiv.remove();
+                                    })
+                                    .catch(error => {
+                                        console.error('Error fetching teams:', error);
+                                        loadingDiv.textContent = 'Error loading teams. Please try again.';
+                                        loadingDiv.className = 'text-danger small mt-1';
+                                    });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">© 2025 NBA DeadCap Tracker | Universe-J</p>
+        </div>
+    </footer>
+
+    <br><br>
+    <br><br>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
